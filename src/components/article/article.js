@@ -87,8 +87,64 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'BloomTech',
+    date: 'Jan 1st, 2022',
+    firstParagraph: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tempus in dui mollis venenatis. Pellentesque nec urna dui. Donec turpis elit, viverra bibendum pellentesque nec, sodales a enim. Sed vehicula diam vel leo facilisis sodales. Nullam a elementum nulla. Etiam scelerisque vel quam in cursus. Praesent enim tellus, tincidunt eu mi id, lacinia euismod enim. Maecenas tellus velit, congue in porttitor tempus, varius quis leo. Aenean ac arcu quis tellus mattis ornare. Curabitur sodales tincidunt eros sed vehicula. Praesent volutpat porttitor nulla eu sollicitudin. Maecenas sagittis tempus odio faucibus sagittis.`,
+
+    secondParagraph: `Fusce molestie commodo purus, vitae vehicula magna consequat efficitur. Etiam ut dolor sit amet massa sagittis dictum. Nulla id nibh in dui scelerisque iaculis et at lorem. Quisque ut libero elementum est dictum rhoncus. Maecenas non finibus elit. Mauris elementum ultrices lorem in luctus. Etiam venenatis laoreet orci ut tempor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam sit amet erat justo. Aliquam erat volutpat. Donec et dapibus nisl. Cras ut dictum ligula. Aliquam vel nunc quis ex tincidunt posuere vitae vitae urna. Donec ut ipsum molestie ante fermentum sagittis. Donec ultrices dignissim turpis eget congue. `,
+
+    thirdParagraph: `Fusce pellentesque sit amet arcu quis sollicitudin. Fusce hendrerit egestas neque. Aliquam in velit metus. Praesent sit amet ex consectetur, egestas tortor et, tempus sem. Phasellus rhoncus faucibus nisi, sit amet euismod ligula mollis a. Sed ante velit, interdum at sem nec, feugiat maximus lacus. Phasellus sed condimentum neque. Pellentesque id convallis tortor. Mauris eget mollis lectus, blandit feugiat felis. Fusce interdum in ex id aliquam. Nullam erat arcu, mattis eu imperdiet a, scelerisque eget eros. Nulla bibendum lacus nunc, sit amet vehicula libero dictum sed. Vestibulum eget porta diam. Aenean in ex lacus. Maecenas tempus, massa id euismod elementum, massa neque tincidunt leo, et viverra augue mi a nulla. Proin feugiat nulla imperdiet consequat consectetur.`
   }
 ];
+function articleMaker(){
+  //create a div/h2/p elements
+  let articleDiv = document.createElement("div");
+  //give the div a class of "article"
+  articleDiv.classList = "article";
+  let articleH2 = document.createElement('h2');
+  //append h2 element to the div element
+  articleDiv.appendChild(articleH2);
+  //create a p element
+  let articleP = document.createElement('p');
+  //create a class for the P element
+  articleP.classList = "date";
+  //append articleP to div element
+  articleDiv.appendChild(articleP);
+  // three seperate paragraphs 
+  let articleFirstParagraph = document.createElement('p');
+  let articleSecondParagraph = document.createElement('p');
+  let articleThirdParagraph = document.createElement('p');
+  //append three paragraphs
+  articleDiv.appendChild(articleFirstParagraph);
+  articleDiv.appendChild(articleSecondParagraph);
+  articleDiv.appendChild(articleThirdParagraph);
+  //create a span element
+  let articleSpan = document.createElement('span');
+  //create a class for span element
+   articleSpan.classList = "expandButton"
+   //add + to span
+   articleSpan.textContent = "+";
+  //append span to div element
+  articleDiv.appendChild(articleSpan);
+  //event listener for button
+  articleSpan.addEventListener('click', () => {articleDiv.classList.toggle('article-open');})
+  //return function
+  return articleDiv;
+}
+
+
+data.forEach(element => {
+  const newArticle = articleMaker(element);
+  newArticle.querySelector('h2').textContent = element.title;
+  newArticle.querySelector('p').textContent = element.date;
+  newArticle.children[2].textContent = element.firstParagraph;
+  newArticle.children[3].textContent = element.secondParagraph;
+  newArticle.children[4].textContent = element.thirdParagraph;
+  document.querySelector('.articles').append(newArticle);
+})
+
 
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
@@ -101,7 +157,7 @@ const data = [
 
     {three separate paragraph elements}
 
-    <span class="expandButton">+</span>
+    <span class="expandButton"> + </span>
   </div>
 
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
